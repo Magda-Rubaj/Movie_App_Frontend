@@ -14,7 +14,6 @@ function Register() {
             email: email,
             password: password
         });
-        console.log(user)
         userApi.postUser(user);
     };
 
