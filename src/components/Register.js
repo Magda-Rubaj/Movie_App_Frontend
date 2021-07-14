@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import React, { useState } from 'react';
-import postUser from '../services/userApi'
+import userApi from '../services/userApi'
 
 function Register() {
     const [username, setUsername] = useState("")
@@ -13,21 +13,22 @@ function Register() {
             username: username,
             email: email,
             password: password
-        })
-        postUser(user)
-    }
+        });
+        console.log(user)
+        userApi.postUser(user);
+    };
 
     const emailChanged = e => {
-        setEmail(e.target.value)
-    }
+        setEmail(e.target.value);
+    };
 
     const usernameChanged = e => {
-        setUsername(e.target.value)
-    }
+        setUsername(e.target.value);
+    };
 
     const passwordChanged = e => {
-        setPassword(e.target.value)
-    }
+        setPassword(e.target.value);
+    };
 
     return (
         <div className="Register">
@@ -51,6 +52,7 @@ function Register() {
                     value={password}
                     onChange={passwordChanged}
                 /><br/>
+                <input type="submit" value="Sign Up"/><br/>
             </form>
         </div>
     );
