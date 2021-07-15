@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.Nav {
+  width: 15%;
+  background: rgb(77, 79, 219);
+  height: 100%;
+}
+.NavItemWrapper{
+  padding-top: 8%;
+}
+html, body, #root, .App, .Main, .Nav {
+  min-height: 100vh;
+}
