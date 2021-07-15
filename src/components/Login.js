@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import userApi from '../services/userApi'
+import tokenApi from '../services/tokenApi';
 
 function Login() {
     const [authenticated, setAuthenticated] = useState(false)
@@ -12,7 +13,16 @@ function Login() {
             email: email,
             password: password
         });
-        userApi.postUser(user);
+        tokenApi.obtain(user)
+            .then(token => {
+                const json = JSON.parse(atob(token.split('.')[1]));
+                userApi.getUser(json.user_id)
+                .then(res => {
+                    localStorage.setItem('user', res.data);
+                    console.log(res.data)
+                })
+            })
+        setAuthenticated(true);
     };
 
     const emailChanged = e => {
@@ -24,9 +34,9 @@ function Login() {
     };
 
     return (
-        <div className="Register">
+        <div className="Login">
             <h3>Login</h3>
-             <form onSubmit={signup}>
+             <form onSubmit={signin}>
              <h5>Email</h5>
                 <input 
                     type="email"

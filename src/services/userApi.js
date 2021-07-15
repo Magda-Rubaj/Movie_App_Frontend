@@ -13,5 +13,15 @@ export default {
         .then(res =>res)
         .catch(e => {
             console.log(e);
-        }) 
+        }),
+
+    getUser: id => 
+        axios({
+            method: 'get',
+            url: API_URL + `${id}/`, 
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': "JWT " + localStorage.getItem('access_token'),
+            },
+        })
 };
