@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import userApi from '../services/userApi'
-import tokenApi from '../services/tokenApi';
+import userApi from '../services/userServices'
+import tokenApi from '../services/tokenServices';
 
 function Login() {
     const [authenticated, setAuthenticated] = useState(false)

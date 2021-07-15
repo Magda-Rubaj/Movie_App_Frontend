@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import React, { useState } from 'react';
-import userApi from '../services/userApi'
+import userApi from '../services/userServices'
 
 function Register() {
     const [email, setEmail] = useState("")
