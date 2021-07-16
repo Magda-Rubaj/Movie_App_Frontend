@@ -5,13 +5,19 @@ import {
     Redirect
   } from "react-router-dom";
 import Nav from './Nav';
+import Movies from './Movies';
 
 function Main() {
 
     return (
         <div className="Main">
             <HashRouter>
-                <Nav />
+                
+                <div className="Main__Container">
+                    <Route path="/movies">
+                        <Movies />
+                    </Route>
+                </div>
             </HashRouter>
         </div>
     );

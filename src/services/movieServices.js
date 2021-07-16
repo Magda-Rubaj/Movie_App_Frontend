@@ -14,4 +14,15 @@ export default {
         .catch(e => {
             console.log(e);
         }),
+    
+    deleteMovie: id => 
+        axios({
+            method: 'delete',
+            url: API_URL + `${id}/`, 
+            headers: {'Content-Type':'application/json'},
+        })  
+        .then(res =>res)
+        .catch(e => {
+            console.log(e);
+        }),
 }

@@ -5,14 +5,14 @@ function Nav() {
 
     const logout = () => {
         localStorage.clear();
-        window.location.reload(false);
+        window.location.reload();
     };
 
     return (
         <div className="Nav">
             <nav>
                 <div className="NavItemWrapper">
-                    <NavLink id="movies" className="NavItem" to="/">Movies</NavLink>
+                    <NavLink id="movies" className="NavItem" to="/movies">Movies</NavLink>
                 </div>
                 <div className="NavItemWrapper">
                     <NavLink id="actors" className="NavItem" to="/">Actors</NavLink>
