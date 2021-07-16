@@ -12,7 +12,6 @@ function Main() {
     return (
         <div className="Main">
             <HashRouter>
-                
                 <div className="Main__Container">
                     <Route path="/movies">
                         <Movies />
