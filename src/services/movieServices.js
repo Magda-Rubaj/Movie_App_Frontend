@@ -6,10 +6,11 @@ const API_URL = "http://0.0.0.0:8000/movie-api/movies/";
 export default {
     getMovieList: () => 
         axios({
-            mode: "no-cors",
             method: 'get',
             url: API_URL, 
-            headers: {'Content-Type':'application/json'},
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('access_token'),},
         })  
         .then(res =>res.data)
         .catch(e => {
@@ -21,14 +22,20 @@ export default {
             method: 'post',
             url: API_URL, 
             data: body,
-            headers: {'Content-Type':'multipart/form-data'},
+            headers: {
+                'Content-Type':'multipart/form-data',
+                'Authorization': "Bearer " + localStorage.getItem('access_token'),
+            },
         }),
 
     deleteMovie: id => 
         axios({
             method: 'delete',
             url: API_URL + `${id}/`, 
-            headers: {'Content-Type':'application/json'},
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('access_token'),
+            },
         })  
         .then(res =>res)
         .catch(e => {

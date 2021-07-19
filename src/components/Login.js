@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import userApi from '../services/userServices'
 import tokenApi from '../services/tokenServices';
 
-function Login() {
-    const [authenticated, setAuthenticated] = useState(false)
+function Login({loginCallback}) {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -18,11 +17,11 @@ function Login() {
                 const json = JSON.parse(atob(token.split('.')[1]));
                 userApi.getUser(json.user_id)
                 .then(res => {
-                    localStorage.setItem('user', res.data);
-                    console.log(res.data)
+                    localStorage.setItem('user', JSON.stringify(res.data));
                 })
             })
-        setAuthenticated(true);
+        loginCallback();
+        userApi.checkIsAdmin();
     };
 
     const emailChanged = e => {

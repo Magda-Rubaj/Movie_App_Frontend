@@ -19,7 +19,7 @@ function Movies() {
 
     return (
         <div className="Movies">
-            <div className="Movies__Container">
+            <div className="Movies_Container">
                 <h3>Movies</h3>
                 {movieList.map(movie => 
                     <figure key={movie.id}>

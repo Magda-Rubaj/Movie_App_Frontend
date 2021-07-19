@@ -21,7 +21,10 @@ export default {
             url: API_URL + `${id}/`, 
             headers: {
                 'Content-Type':'application/json',
-                'Authorization': "JWT " + localStorage.getItem('access_token'),
+                'Authorization': "Bearer " + localStorage.getItem('access_token'),
             },
-        })
+        }),
+
+    checkIsAdmin: () => JSON.parse(localStorage.getItem('user')).is_admin,
+    
 };

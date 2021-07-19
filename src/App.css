@@ -48,3 +48,6 @@
 html, body, #root, .App, .Main, .Nav {
   min-height: 100vh;
 }
+.Main_Container{
+  display: flex;
+}
