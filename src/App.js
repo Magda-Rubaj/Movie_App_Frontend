@@ -18,7 +18,7 @@ function App() {
         if(authenticated){
             const interval = setInterval(() => {
                 refresh();
-            }, (10 * 1000 * 60) - 10);
+            }, (1 * 1000 * 60) - 5);
             return () => clearInterval(interval);
         }
     });
@@ -27,13 +27,12 @@ function App() {
         const token = JSON.stringify({
             refresh: localStorage.getItem('refresh_token')
         })
-
+        console.log(localStorage.getItem('access_token'));
         tokenServices.refresh(token)
             .then(res => {
-                if(res) {
-                    localStorage.setItem('access_token', res.access);
-                    localStorage.setItem('refresh_token', res.refresh);
-                }
+                localStorage.setItem('access_token', res.data.access);
+                localStorage.setItem('refresh_token', res.data.refresh);
+                
             })
         alert("Token refreshed")
     }

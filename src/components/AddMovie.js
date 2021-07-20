@@ -1,71 +1,41 @@
 import React, { useEffect, useState } from 'react';
+import { useForm } from "react-hook-form";
 import movieServices from '../services/movieServices';
 import Popup from "reactjs-popup";
 
 function AddMovie() {
 
-    const [title, setTitle] = useState("")
-    const [productionYear, setProductionYear] = useState(null)
-    const [image, setImage] = useState(null)
-    const [description, setDescription] = useState("")
+    const { register, handleSubmit} = useForm()
 
-    const addMovie = e => {
-        e.preventDefault();
-        let data = new FormData();
-        data.append('title', title);
-        data.append('production_year', productionYear);
+    const addMovie = data => {
+        let postData = new FormData();
+        postData.append('title', data.title);
+        postData.append('production_year', data.production_year);
+        const image = data.image[0]
         if(image){
-            data.append('image', image, image.name);
+            postData.append('image', image, image.name);
         }
-        data.append('description', description);
-        movieServices.postMovie(data);
+        postData.append('description', data.description);
+        movieServices.postMovie(postData);
         window.location.reload()
     }
-
-    const titleChanged = e => {
-        setTitle(e.target.value);
-    };
-
-    const yearChanged = e => {
-        setProductionYear(e.target.value);
-    };
-
-    const imageChanged = e => {
-        setImage(e.target.files[0]);
-    };
-
-    const descriptionChanged = e => {
-        setDescription(e.target.value);
-    };
 
     return (
         <div className="AddMovie">
             <Popup class="modal" modal trigger={<button className="add_button">Add</button>}>
-                <form onSubmit={addMovie}>
+                <form onSubmit={handleSubmit(addMovie)}>
                     Title<br/>
-                    <input 
-                        type="text"
-                        value={title}
-                        onChange={titleChanged}
-                    /><br/>
+                    <input {...register('title')}/><br/>
                     Year of production<br/>
-                    <input 
-                        type="number"
-                        onChange={yearChanged}
-                    /><br/>
+                    <input {...register('production_year')}/><br/>
+                    <br/>
                     Image<br/>
-                    <input 
-                        type="file"
-                        accept="image/png, image/jpeg"
-                        onChange={imageChanged}
-                    /><br/>
+                    <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
+                    <br/>
                     Description<br/>
-                    <input 
-                        type="text"
-                        onChange={descriptionChanged}
-                    /><br/>
+                    <input {...register('description')}/><br/>
                     <input type="submit" value="Save"/>
-                </form>               
+                </form>              
             </Popup>
         </div>
     );

@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
 import userApi from '../services/userServices'
 import tokenApi from '../services/tokenServices';
 
 function Login({loginCallback}) {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const { register, handleSubmit} = useForm()
 
-    const signin = e => {
-        e.preventDefault();
+    const signin = data => {
         const user = JSON.stringify({
-            email: email,
-            password: password
+            email: data.email,
+            password: data.password
         });
         tokenApi.obtain(user)
             .then(token => {
@@ -24,30 +23,15 @@ function Login({loginCallback}) {
         userApi.checkIsAdmin();
     };
 
-    const emailChanged = e => {
-        setEmail(e.target.value);
-    };
-
-    const passwordChanged = e => {
-        setPassword(e.target.value);
-    };
-
     return (
         <div className="Login">
             <h3>Login</h3>
-             <form onSubmit={signin}>
+             <form onSubmit={handleSubmit(signin)}>
              <h5>Email</h5>
-                <input 
-                    type="email"
-                    value={email}
-                    onChange={emailChanged}
-                /><br/>
+                <input {...register('email') } type="email"/><br/>
+                <br/>
                 <h5>Password</h5>
-                <input 
-                    type="password"
-                    value={password}
-                    onChange={passwordChanged}
-                /><br/>
+                <input {...register('password')} type="password" /><br/><br/>
                 <input type="submit" value="Login"/><br/>
             </form>
         </div>
