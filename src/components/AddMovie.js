@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import movieServices from '../services/movieServices';
+import userServices from '../services/userServices';
 import Popup from "reactjs-popup";
 
 function AddMovie() {
@@ -16,6 +17,7 @@ function AddMovie() {
             postData.append('image', image, image.name);
         }
         postData.append('description', data.description);
+        postData.append('added_by', userServices.getUserID());
         movieServices.postMovie(postData);
         window.location.reload()
     }

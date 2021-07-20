@@ -18,7 +18,7 @@ function App() {
         if(authenticated){
             const interval = setInterval(() => {
                 refresh();
-            }, (1 * 1000 * 60) - 5);
+            }, (10 * 1000 * 60) - 5);
             return () => clearInterval(interval);
         }
     });
@@ -34,8 +34,8 @@ function App() {
                 localStorage.setItem('refresh_token', res.data.refresh);
                 
             })
-        alert("Token refreshed")
     }
+
     return (
         <div className="App">
             <HashRouter>

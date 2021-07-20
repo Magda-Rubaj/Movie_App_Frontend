@@ -26,5 +26,7 @@ export default {
         }),
 
     checkIsAdmin: () => JSON.parse(localStorage.getItem('user')).is_admin,
+
+    getUserID: () => JSON.parse(localStorage.getItem('user')).id,
     
 };
