@@ -45,6 +45,7 @@ function AddMovie() {
                     Title<br/>
                     <input 
                         type="text"
+                        value={title}
                         onChange={titleChanged}
                     /><br/>
                     Year of production<br/>

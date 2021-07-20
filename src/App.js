@@ -18,7 +18,7 @@ function App() {
         if(authenticated){
             const interval = setInterval(() => {
                 refresh();
-            }, (1 * 1000 * 60) - 10);
+            }, (10 * 1000 * 60) - 10);
             return () => clearInterval(interval);
         }
     });

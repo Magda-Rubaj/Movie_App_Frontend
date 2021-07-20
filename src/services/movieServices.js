@@ -8,11 +8,9 @@ export default {
         axios({
             method: 'get',
             url: API_URL, 
-            headers: {
-                'Content-Type':'application/json',
-                'Authorization': "Bearer " + localStorage.getItem('access_token'),},
+            headers: {'Content-Type':'application/json'}
         })  
-        .then(res =>res.data)
+        .then(res => res.data)
         .catch(e => {
             console.log(e);
         }),
@@ -37,8 +35,33 @@ export default {
                 'Authorization': "Bearer " + localStorage.getItem('access_token'),
             },
         })  
-        .then(res =>res)
+        .then(res => res)
         .catch(e => {
             console.log(e);
         }),
+
+    patchMovie: (id, body) => 
+        axios({
+            method: 'patch',
+            url: API_URL + `${id}/`, 
+            data: body,
+            headers: {
+                'Content-Type':'multipart/form-data',
+                'Authorization': "Bearer " + localStorage.getItem('access_token'),
+            },
+        }),
+
+    getMovie: id => 
+        axios({
+            method: 'get',
+            url: API_URL + `${id}/`,
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('access_token'),},
+        })  
+        .then(res => res.data)
+        .catch(e => {
+            console.log(e);
+        }),
+    
 }
