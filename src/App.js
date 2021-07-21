@@ -8,8 +8,10 @@ import {
 import Login from './components/Login';
 import tokenServices from './services/tokenServices';
 import Register from './components/Register';
-import Nav from './components/Nav';
+import { NavLink } from "react-router-dom";
 import Movies from './components/Movies';
+import TopNav from './components/TopNav';
+import Users from './components/Users';
 
 function App() {
     const [authenticated, setAuthenticated] = useState(false)
@@ -39,6 +41,24 @@ function App() {
     return (
         <div className="App">
             <HashRouter>
+            <TopNav logoutCallback={() => setAuthenticated(false)} />
+            <div className="App_Container">
+                <div className="Side_Nav">
+                    <nav>
+                        <div className="NavItemWrapper">
+                            <NavLink id="users" className="NavItem" to="/users">Users</NavLink>
+                        </div>
+                        <div className="NavItemWrapper">
+                            <NavLink id="movies" className="NavItem" to="/movies">Movies</NavLink>
+                        </div>
+                        <div className="NavItemWrapper">
+                            <NavLink id="actors" className="NavItem" to="/">Actors</NavLink>
+                        </div>
+                        <div className="NavItemWrapper">
+                            <NavLink id="directors" className="NavItem" to="/">Directors</NavLink>
+                        </div>
+                    </nav>
+                </div>
                 <div className="Main_Container">
                     <div>
                         <Route path="/login">
@@ -55,6 +75,12 @@ function App() {
                             <Movies />
                         </Route>
                     </div>
+                    <div>
+                        <Route path="/users">
+                            <Users />
+                        </Route>
+                    </div>
+                </div>
                 </div>
             </HashRouter>
         </div>

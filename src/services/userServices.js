@@ -25,6 +25,42 @@ export default {
             },
         }),
 
+    getUserList: () => 
+        axios({
+            method: 'get',
+            url: API_URL, 
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('access_token'),
+            },
+        }),
+    
+    deleteUser: id => 
+        axios({
+            method: 'delete',
+            url: API_URL + `${id}/`, 
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('access_token'),
+            },
+        })  
+        .then(res => res)
+        .catch(e => {
+            console.log(e);
+        }),
+    
+    patchUser: (id, body) => 
+        axios({
+            method: 'patch',
+            url: API_URL + `${id}/`, 
+            data: body,
+            headers: {
+                'Content-Type':'application/json',
+                'Authorization': "Bearer " + localStorage.getItem('access_token'),
+            },
+        }),
+
+
     checkIsAdmin: () => JSON.parse(localStorage.getItem('user')).is_admin,
 
     getUserID: () => JSON.parse(localStorage.getItem('user')).id,

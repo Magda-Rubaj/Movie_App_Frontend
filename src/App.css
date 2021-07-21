@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  display: block;
 }
 
 .App-logo {
@@ -37,17 +38,38 @@
   }
 }
 
-.Nav {
+.Side_Nav {
   width: 15%;
   background: rgb(77, 79, 219);
-  height: 100%;
 }
-.NavItemWrapper{
+
+.NavItemWrapper {
   padding-top: 8%;
 }
+
 html, body, #root, .App, .Main, .Nav {
   min-height: 100vh;
 }
-.Main_Container{
+
+.Main_Container {
+  width: 85%;
+  height: 100%;
+}
+
+.TopNav{
+  background: rgb(250, 250, 250);
+  height: 50px;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
+  box-shadow: rgb(189, 189, 189) 5px;
+}
+.Side_Nav a {
+  text-decoration: none;
+  color: black;
+}
+
+.App_Container {
   display: flex;
+  height: 100vh;
 }
