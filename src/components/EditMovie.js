@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
-import movieServices from '../services/movieServices';
+import resourceServices from '../services/resourceServices';
 import Popup from "reactjs-popup";
+
+const TYPE = 'movies'
 
 function EditMovie({movieID}) {
 
     const { register, handleSubmit, setValue } = useForm()
 
     useEffect(() => {
-        movieServices.getMovie(movieID)
+        resourceServices.getResource(movieID, TYPE)
             .then(data => {
                 setValue('title', data.title)
                 setValue('production_year', data.production_year)
@@ -21,7 +23,7 @@ function EditMovie({movieID}) {
         patchData.append('title', data.title);
         patchData.append('production_year', data.production_year);
         patchData.append('description', data.description);
-        movieServices.patchMovie(movieID, patchData);
+        resourceServices.patchResource(movieID, patchData, TYPE);
         window.location.reload()
     }
 

@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 import Movies from './components/Movies';
 import TopNav from './components/TopNav';
 import Users from './components/Users';
+import Actors from './components/Actors';
 
 function App() {
     const [authenticated, setAuthenticated] = useState(false)
@@ -52,7 +53,7 @@ function App() {
                             <NavLink id="movies" className="NavItem" to="/movies">Movies</NavLink>
                         </div>
                         <div className="NavItemWrapper">
-                            <NavLink id="actors" className="NavItem" to="/">Actors</NavLink>
+                            <NavLink id="actors" className="NavItem" to="/actors">Actors</NavLink>
                         </div>
                         <div className="NavItemWrapper">
                             <NavLink id="directors" className="NavItem" to="/">Directors</NavLink>
@@ -78,6 +79,11 @@ function App() {
                     <div>
                         <Route path="/users">
                             <Users />
+                        </Route>
+                    </div>
+                    <div>
+                        <Route path="/actors">
+                            <Actors />
                         </Route>
                     </div>
                 </div>

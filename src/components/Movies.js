@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import movieServices from '../services/movieServices';
+import resourceServices from '../services/resourceServices';
 import AddMovie from './AddMovie';
 import EditMovie from './EditMovie';
+
+const TYPE = 'movies'
 
 function Movies() {
     const [movieList, setMovieList] = useState([])
 
     useEffect(() => {
-        movieServices.getMovieList()
+        resourceServices.getResourceList(TYPE)
             .then(data => {
                 setMovieList(data)
             })
     }, [])
 
     const deleteMovie = id => {
-        movieServices.deleteMovie(id);
+        resourceServices.deleteResource(id, TYPE);
         window.location.reload()
     }
 

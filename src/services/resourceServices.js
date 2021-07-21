@@ -1,13 +1,13 @@
 import axios from "axios";
 
 
-const API_URL = "http://0.0.0.0:8000/movie-api/movies/";
+const API_URL = "http://0.0.0.0:8000/movie-api/";
 
 export default {
-    getMovieList: () => 
+    getResourceList: type => 
         axios({
             method: 'get',
-            url: API_URL, 
+            url: API_URL + `${type}/`, 
             headers: {'Content-Type':'application/json'}
         })  
         .then(res => res.data)
@@ -15,10 +15,10 @@ export default {
             console.log(e);
         }),
     
-    postMovie: body => 
+    postResource: (body, type) => 
         axios({
             method: 'post',
-            url: API_URL, 
+            url: API_URL + `${type}/`, 
             data: body,
             headers: {
                 'Content-Type':'multipart/form-data',
@@ -26,10 +26,10 @@ export default {
             },
         }),
 
-    deleteMovie: id => 
+    deleteResource: (id, type) => 
         axios({
             method: 'delete',
-            url: API_URL + `${id}/`, 
+            url: API_URL + `${type}/${id}/`, 
             headers: {
                 'Content-Type':'application/json',
                 'Authorization': "Bearer " + localStorage.getItem('access_token'),
@@ -40,10 +40,10 @@ export default {
             console.log(e);
         }),
 
-    patchMovie: (id, body) => 
+    patchResource: (id, body, type) => 
         axios({
             method: 'patch',
-            url: API_URL + `${id}/`, 
+            url: API_URL + `${type}/${id}/`, 
             data: body,
             headers: {
                 'Content-Type':'multipart/form-data',
@@ -51,10 +51,10 @@ export default {
             },
         }),
 
-    getMovie: id => 
+    getResource: (id, type) => 
         axios({
             method: 'get',
-            url: API_URL + `${id}/`,
+            url: API_URL + `${type}/${id}/`,
             headers: {
                 'Content-Type':'application/json',
                 'Authorization': "Bearer " + localStorage.getItem('access_token'),},

@@ -4,40 +4,38 @@ import resourceServices from '../services/resourceServices';
 import userServices from '../services/userServices';
 import Popup from "reactjs-popup";
 
-const TYPE = 'movies'
+const TYPE = 'actors'
 
-function AddMovie() {
+function AddActor() {
 
     const { register, handleSubmit} = useForm()
 
-    const addMovie = data => {
+    const addActor = data => {
         let postData = new FormData();
-        postData.append('title', data.title);
-        postData.append('production_year', data.production_year);
+        postData.append('name', data.name);
+        postData.append('birth_date', data.birth_date);
         const image = data.image[0]
         if(image){
             postData.append('image', image, image.name);
         }
-        postData.append('description', data.description);
+        postData.append('roles', data.roles);
         postData.append('added_by', userServices.getUserID());
         resourceServices.postResource(postData, TYPE);
         window.location.reload()
     }
 
     return (
-        <div className="AddMovie">
+        <div className="AddActor">
             <Popup class="modal" modal trigger={<button className="add_button">Add</button>}>
-                <form onSubmit={handleSubmit(addMovie)}>
-                    Title<br/>
-                    <input {...register('title')}/><br/>
-                    Year of production<br/>
-                    <input {...register('production_year')}/><br/>
+                <form onSubmit={handleSubmit(addActor)}>
+                    Name<br/>
+                    <input {...register('name')}/><br/>
+                    Date of birth<br/>
+                    <input {...register('birth_date')} type="date"/><br/>
                     <br/>
                     Image<br/>
                     <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
                     <br/>
-                    Description<br/>
-                    <input {...register('description')}/><br/>
                     <input type="submit" value="Save"/>
                 </form>              
             </Popup>
@@ -45,4 +43,4 @@ function AddMovie() {
     );
 }
 
-export default AddMovie;
+export default AddActor;
