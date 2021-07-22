@@ -18,7 +18,6 @@ function AddActor() {
         if(image){
             postData.append('image', image, image.name);
         }
-        postData.append('roles', data.roles);
         postData.append('added_by', userServices.getUserID());
         resourceServices.postResource(postData, TYPE);
         window.location.reload()

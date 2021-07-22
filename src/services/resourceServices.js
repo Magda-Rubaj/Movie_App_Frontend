@@ -46,18 +46,30 @@ export default {
             url: API_URL + `${type}/${id}/`, 
             data: body,
             headers: {
-                'Content-Type':'multipart/form-data',
+                'Content-Type':'application/json',
                 'Authorization': "Bearer " + localStorage.getItem('access_token'),
             },
         }),
+    
+    patchImage: (id, img, type) =>
+        axios({
+            method: 'patch',
+            url: API_URL + `${type}/${id}/`, 
+            data: img,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': "Bearer " + localStorage.getItem('access_token'),
+            },
+        }),
+
 
     getResource: (id, type) => 
         axios({
             method: 'get',
             url: API_URL + `${type}/${id}/`,
             headers: {
-                'Content-Type':'application/json',
-                'Authorization': "Bearer " + localStorage.getItem('access_token'),},
+                'Content-Type':'application/json'
+            }
         })  
         .then(res => res.data)
         .catch(e => {

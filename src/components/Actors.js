@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import resourceServices from '../services/resourceServices';
 import AddActor from './AddActor';
+import EditActor from './EditActor';
+import Popup from "reactjs-popup";
 
 const TYPE = 'actors'
 
@@ -11,6 +13,7 @@ function Actors() {
         resourceServices.getResourceList(TYPE)
             .then(data => {
                 setActorList(data)
+                console.log(data)
             })
     }, [])
 
@@ -25,11 +28,14 @@ function Actors() {
                 <h3>Actors</h3>
                 {actorList.map(actor => 
                     <figure key={actor.id}>
-                     AddMovie<img src={actor.image}/>
+                    <img src={actor.image}/>
                         <figcaption>{actor.name}</figcaption>
                         <p>{`Date of birth: ${actor.birth_date}`}</p>
                         <p>{`Played in: ${actor.roles}`}</p>
                         <button id="delete-actor" onClick={() => deleteActor(actor.id)}>Delete</button>
+                        <Popup class="modal" modal trigger={<button className="edit_button">Edit</button>}>
+                            <EditActor actorID={actor.id} />
+                        </Popup>
                     </figure>
                 )}
                 <AddActor /> 

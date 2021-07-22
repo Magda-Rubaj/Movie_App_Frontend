@@ -23,6 +23,10 @@ function EditMovie({movieID}) {
         patchData.append('title', data.title);
         patchData.append('production_year', data.production_year);
         patchData.append('description', data.description);
+        const image = data.image[0]
+        if(image){
+            patchData.append('image', image, image.name);
+        }
         resourceServices.patchResource(movieID, patchData, TYPE);
         window.location.reload()
     }
@@ -35,6 +39,9 @@ function EditMovie({movieID}) {
                     <input {...register('title')}/><br/>
                     Year of production<br/>
                     <input {...register('production_year')}/><br/>
+                    <br/>
+                    Image<br/>
+                    <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
                     <br/>
                     Description<br/>
                     <input {...register('description')}/><br/>
