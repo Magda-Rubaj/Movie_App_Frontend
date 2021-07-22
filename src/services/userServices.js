@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = "http://0.0.0.0:8000/accounts-api/users/";
 
-export default {
+const userServices = {
     postUser: body => 
         axios({
             method: 'post',
@@ -60,9 +60,11 @@ export default {
             },
         }),
 
+    checkIsAuth: () => localStorage.getItem('access_token') != null ? true : false,
 
-    checkIsAdmin: () => JSON.parse(localStorage.getItem('user')).is_admin,
+    checkIsAdmin: () => userServices.checkIsAuth() ? JSON.parse(localStorage.getItem('user')).is_admin : false,
 
     getUserID: () => JSON.parse(localStorage.getItem('user')).id,
     
 };
+export default userServices

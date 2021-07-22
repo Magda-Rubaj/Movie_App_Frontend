@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import resourceServices from '../services/resourceServices';
+import userServices from '../services/userServices';
 import AddDirector from './AddDirector';
 import EditDirector from './EditDirector';
 import Popup from "reactjs-popup";
@@ -32,13 +33,16 @@ function Directors() {
                         <figcaption>{director.name}</figcaption>
                         <p>{`Date of birth: ${director.birth_date}`}</p>
                         <p>{`Directed: ${director.directed}`}</p>
-                        <button id="delete-director" onClick={() => deleteDirector(director.id)}>Delete</button>
-                        <Popup class="modal" modal trigger={<button className="edit_button">Edit</button>}>
-                            <EditDirector directorID={director.id} />
-                        </Popup>
+                        {userServices.checkIsAdmin() &&
+                        <React.Fragment>
+                            <button id="delete-director" onClick={() => deleteDirector(director.id)}>Delete</button>
+                            <Popup class="modal" modal trigger={<button className="edit_button">Edit</button>}>
+                                <EditDirector directorID={director.id} />
+                            </Popup>
+                        </React.Fragment>}
                     </figure>
                 )}
-                <AddDirector /> 
+                {userServices.checkIsAuth() && <AddDirector />}
             </div>
         </div>
     );

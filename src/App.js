@@ -7,6 +7,7 @@ import {
   } from "react-router-dom";
 import Login from './components/Login';
 import tokenServices from './services/tokenServices';
+import userServices from './services/userServices';
 import Register from './components/Register';
 import { NavLink } from "react-router-dom";
 import Movies from './components/Movies';
@@ -47,9 +48,11 @@ function App() {
             <div className="App_Container">
                 <div className="Side_Nav">
                     <nav>
-                        <div className="NavItemWrapper">
-                            <NavLink id="users" className="NavItem" to="/users">Users</NavLink>
-                        </div>
+                        {userServices.checkIsAdmin() &&
+                            <div className="NavItemWrapper">
+                                <NavLink id="users" className="NavItem" to="/users">Users</NavLink>
+                            </div>
+                        }
                         <div className="NavItemWrapper">
                             <NavLink id="movies" className="NavItem" to="/movies">Movies</NavLink>
                         </div>

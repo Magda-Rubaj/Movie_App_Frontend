@@ -18,6 +18,7 @@ function Login({loginCallback}) {
                 userApi.getUser(json.user_id)
                 .then(res => {
                     localStorage.setItem('user', JSON.stringify(res.data));
+                    console.log(res.data)
                 })
             })
         loginCallback();
