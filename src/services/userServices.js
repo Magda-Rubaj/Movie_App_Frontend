@@ -33,6 +33,10 @@ const userServices = {
                 'Content-Type':'application/json',
                 'Authorization': "Bearer " + localStorage.getItem('access_token'),
             },
+        })
+        .then(res => res.data)
+        .catch(e => {
+            console.log(e);
         }),
     
     deleteUser: id => 
@@ -62,7 +66,8 @@ const userServices = {
 
     checkIsAuth: () => localStorage.getItem('access_token') != null ? true : false,
 
-    checkIsAdmin: () => userServices.checkIsAuth() ? JSON.parse(localStorage.getItem('user')).is_admin : false,
+    checkIsAdmin: () => 
+        userServices.checkIsAuth() ? JSON.parse(localStorage.getItem('user')).is_admin : false,
 
     getUserID: () => JSON.parse(localStorage.getItem('user')).id,
     

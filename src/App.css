@@ -41,6 +41,8 @@
 .Side_Nav {
   width: 15%;
   background: rgb(77, 79, 219);
+  position: fixed;
+  height: 100%;
 }
 
 .NavItemWrapper {
@@ -54,6 +56,8 @@ html, body, #root, .App, .Main, .Nav {
 .Main_Container {
   width: 85%;
   height: 100%;
+  margin-top: 60px;
+  margin-left: 15%;
 }
 
 .TopNav{
@@ -61,12 +65,21 @@ html, body, #root, .App, .Main, .Nav {
   height: 50px;
   width: 100%;
   margin: 0;
+  display: flex;
+  justify-content: flex-end;
   overflow: hidden;
-  box-shadow: rgb(189, 189, 189) 5px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  position: fixed;
 }
+
 .Side_Nav a {
   text-decoration: none;
-  color: black;
+  color: whitesmoke;
+  font-size: 20px;
+}
+img{
+  width: 350px;
+  height: 300px;
 }
 
 .App_Container {

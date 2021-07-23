@@ -26,7 +26,7 @@ function App() {
             }, (10 * 1000 * 60) - 5);
             return () => clearInterval(interval);
         }
-    });
+    }, [authenticated]);
 
     const refresh = () => {
         const token = JSON.stringify({

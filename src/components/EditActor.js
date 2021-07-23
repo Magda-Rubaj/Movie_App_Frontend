@@ -32,7 +32,7 @@ function EditActor({actorID}) {
     }, []);
 
     const handleSelectChange = selected => {
-        selected = selected.map(role => role.value)
+        selected = selected.map(role => ({id:role.value}))
         setRolesToAdd(selected)
     }
 
