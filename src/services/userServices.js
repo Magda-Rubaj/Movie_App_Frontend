@@ -9,9 +9,6 @@ const userServices = {
             url: API_URL, 
             data: body,
             headers: {'Content-Type':'application/json'},
-        })  
-        .catch(e => {
-            console.log(e);
         }),
 
     getUser: id => 

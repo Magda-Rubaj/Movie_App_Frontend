@@ -55,7 +55,7 @@ function EditActor({actorID}) {
             imageForm.append('image', image, image.name);
         }
         resourceServices.patchImage(actorID, imageForm, TYPE)
-        window.location.reload()
+        //window.location.reload()
     }
 
     return (

@@ -15,30 +15,42 @@ import TopNav from './components/TopNav';
 import Users from './components/Users';
 import Actors from './components/Actors';
 import Directors from './components/Directors';
+import axios from "axios";
+
 
 function App() {
     const [authenticated, setAuthenticated] = useState(false)
 
     useEffect(() => {
-        if(authenticated){
-            const interval = setInterval(() => {
+        console.log("oof")
+        axios.interceptors.response.use(res => res,
+        error => {
+            const {status, data, config } = error.response;
+            const originalRequest = config
+            if(status === 401 && userServices.checkIsAuth()){
                 refresh();
-            }, (10 * 1000 * 60) - 5);
-            return () => clearInterval(interval);
-        }
+                originalRequest.headers['Authorization'] = "Bearer " + localStorage.getItem('access_token')
+                return axios(originalRequest);
+            }
+            return Promise.reject(error);
+        })
     }, [authenticated]);
 
     const refresh = () => {
         const token = JSON.stringify({
             refresh: localStorage.getItem('refresh_token')
         })
-        console.log(localStorage.getItem('access_token'));
         tokenServices.refresh(token)
             .then(res => {
                 localStorage.setItem('access_token', res.data.access);
                 localStorage.setItem('refresh_token', res.data.refresh);
             })
-            alert("refreshed")
+            .catch(e => {
+                if(e.response.status === 401){
+                    localStorage.clear();
+                }
+            })
+        
     }
 
     return (

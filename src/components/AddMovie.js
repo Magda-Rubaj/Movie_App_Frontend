@@ -35,7 +35,7 @@ function AddMovie() {
                     Title<br/>
                     <input {...register('title')}/><br/>
                     Year of production<br/>
-                    <input {...register('production_year')}/><br/>
+                    <input {...register('production_year')} type="number"/><br/>
                     <br/>
                     Image<br/>
                     <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>

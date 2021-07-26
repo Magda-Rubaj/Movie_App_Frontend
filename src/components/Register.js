@@ -20,8 +20,9 @@ function Register() {
                     history.push("/login")
                 }
             })
-        
-        
+            .catch(e => {
+                console.log(e.response);
+            })
     };
 
     return (
