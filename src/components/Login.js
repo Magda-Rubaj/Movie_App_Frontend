@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import userApi from '../services/userServices'
 import tokenApi from '../services/tokenServices';
@@ -6,6 +7,7 @@ import tokenApi from '../services/tokenServices';
 
 function Login({loginCallback}) {
     const { register, handleSubmit} = useForm()
+    let history = useHistory();
 
     const signin = data => {
         const user = JSON.stringify({
@@ -18,11 +20,10 @@ function Login({loginCallback}) {
                 userApi.getUser(json.user_id)
                 .then(res => {
                     localStorage.setItem('user', JSON.stringify(res.data));
-                    console.log(res.data)
                 })
             })
         loginCallback();
-        userApi.checkIsAdmin();
+        history.push("/movies")
     };
 
     return (

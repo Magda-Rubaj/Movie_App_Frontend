@@ -47,20 +47,21 @@ function App() {
             <TopNav logoutCallback={() => setAuthenticated(false)} />
             <div className="App_Container">
                 <div className="Side_Nav">
+                    <h5>Movies App</h5>
                     <nav>
                         {userServices.checkIsAdmin() &&
                             <div className="NavItemWrapper">
-                                <NavLink id="users" className="NavItem" to="/users">Users</NavLink>
+                                <NavLink id="users" className="NavItem" activeClassName="active" to="/users">Users</NavLink>
                             </div>
                         }
                         <div className="NavItemWrapper">
-                            <NavLink id="movies" className="NavItem" to="/movies">Movies</NavLink>
+                            <NavLink id="movies" className="NavItem" activeClassName="active"  to="/movies">Movies</NavLink>
                         </div>
                         <div className="NavItemWrapper">
-                            <NavLink id="actors" className="NavItem" to="/actors">Actors</NavLink>
+                            <NavLink id="actors" className="NavItem" activeClassName="active"   to="/actors">Actors</NavLink>
                         </div>
                         <div className="NavItemWrapper">
-                            <NavLink id="directors" className="NavItem" to="/directors">Directors</NavLink>
+                            <NavLink id="directors" className="NavItem" activeClassName="active" to="/directors">Directors</NavLink>
                         </div>
                     </nav>
                 </div>

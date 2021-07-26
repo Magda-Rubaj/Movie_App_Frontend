@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import resourceServices from '../services/resourceServices';
-import Popup from "reactjs-popup";
+import { Button, Modal } from 'react-bootstrap';
 
 const TYPE = 'movies'
 
@@ -33,21 +33,26 @@ function EditMovie({movieID}) {
 
     return (
         <div className="EditMovie">
-            <Popup class="modal" modal trigger={<button className="edit_button">Edit</button>}>
-                <form onSubmit={handleSubmit(editMovie)}>
-                    Title<br/>
-                    <input {...register('title')}/><br/>
-                    Year of production<br/>
-                    <input {...register('production_year')}/><br/>
-                    <br/>
-                    Image<br/>
-                    <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
-                    <br/>
-                    Description<br/>
-                    <input {...register('description')}/><br/>
-                    <input type="submit" value="Save"/>
-                </form>               
-            </Popup>
+            <Modal.Dialog>
+                <Modal.Header>
+                    <Modal.Title>Edit</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handleSubmit(editMovie)}>
+                        Title<br/>
+                        <input {...register('title')}/><br/>
+                        Year of production<br/>
+                        <input {...register('production_year')}/><br/>
+                        <br/>
+                        Image<br/>
+                        <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
+                        <br/>
+                        Description<br/>
+                        <input {...register('description')}/><br/>
+                        <Button variant="primary" type="submit">Save</Button>
+                    </form>  
+                </Modal.Body>
+            </Modal.Dialog>                
         </div>
     );
 }

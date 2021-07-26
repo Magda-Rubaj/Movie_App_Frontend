@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import Select from 'react-select'
 import resourceServices from '../services/resourceServices';
-import Popup from "reactjs-popup";
+import { Button, Modal } from 'react-bootstrap';
 
 const TYPE = 'actors'
 
@@ -55,24 +55,32 @@ function EditActor({actorID}) {
             imageForm.append('image', image, image.name);
         }
         resourceServices.patchImage(actorID, imageForm, TYPE)
-        //window.location.reload()
+        window.location.reload()
     }
 
     return (
         <div className="EditActor">
-                <form onSubmit={handleSubmit(editActor)}>
-                    Name<br/>
-                    <input {...register('name')}/><br/>
-                    Date of birth<br/>
-                    <input {...register('birth_date')}/><br/>
-                    <br/>
-                    Image<br/>
-                    <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
-                    <br/>
-                    <Select options={movieList} onChange={handleSelectChange} isMulti/>
-                    <input type="submit" value="Save"/>
-                </form>               
+            <Modal.Dialog>
+                <Modal.Header>
+                    <Modal.Title>Edit</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                        <form onSubmit={handleSubmit(editActor)}>
+                            Name<br/>
+                            <input {...register('name')}/><br/>
+                            Date of birth<br/>
+                            <input {...register('birth_date')}/><br/>
+                            <br/>
+                            Image<br/>
+                            <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
+                            <br/>
+                            <Select options={movieList} onChange={handleSelectChange} isMulti/>
+                            <Button variant="primary" type="submit">Save</Button>
+                        </form>   
+                </Modal.Body>
+            </Modal.Dialog>          
         </div>
+            
     );
 }
 

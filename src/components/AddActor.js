@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import resourceServices from '../services/resourceServices';
 import userServices from '../services/userServices';
-import Popup from "reactjs-popup";
+import { Button, Modal } from 'react-bootstrap';
 
 const TYPE = 'actors'
 
@@ -25,19 +25,24 @@ function AddActor() {
 
     return (
         <div className="AddActor">
-            <Popup class="modal" modal trigger={<button className="add_button">Add</button>}>
-                <form onSubmit={handleSubmit(addActor)}>
-                    Name<br/>
-                    <input {...register('name')}/><br/>
-                    Date of birth<br/>
-                    <input {...register('birth_date')} type="date"/><br/>
-                    <br/>
-                    Image<br/>
-                    <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
-                    <br/>
-                    <input type="submit" value="Save"/>
-                </form>              
-            </Popup>
+            <Modal.Dialog>
+                <Modal.Header>
+                    <Modal.Title>Add actor</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handleSubmit(addActor)}>
+                        Name<br/>
+                        <input {...register('name')}/><br/>
+                        Date of birth<br/>
+                        <input {...register('birth_date')} type="date"/><br/>
+                        <br/>
+                        Image<br/>
+                        <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
+                        <br/>
+                        <Button variant="primary" type="submit">Save</Button>
+                    </form>    
+                </Modal.Body>
+            </Modal.Dialog>              
         </div>
     );
 }

@@ -40,7 +40,7 @@
 
 .Side_Nav {
   width: 15%;
-  background: rgb(77, 79, 219);
+  background: #007bff;
   position: fixed;
   height: 100%;
 }
@@ -71,11 +71,27 @@ html, body, #root, .App, .Main, .Nav {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   position: fixed;
 }
+.TopNav p{
+  padding-top: 12px;
+  margin-right: 2%;
+}
 
 .Side_Nav a {
   text-decoration: none;
   color: whitesmoke;
   font-size: 20px;
+  padding-left: 20%;
+  object-fit: fill;
+}
+
+.Side_Nav h5 {
+  margin-top: 10%;
+  color: whitesmoke;
+
+}
+.Side_Nav nav {
+  margin-top:15%;
+  text-align: left;
 }
 img{
   width: 350px;
@@ -85,4 +101,7 @@ img{
 .App_Container {
   display: flex;
   height: 100vh;
+}
+.modal {
+  
 }

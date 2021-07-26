@@ -70,7 +70,10 @@ function Directors() {
                         </React.Fragment>}
                     </figure>
                 )}
-                {userServices.checkIsAuth() && <AddDirector />}
+                {userServices.checkIsAuth() && 
+                <Popup class="modal" modal trigger={<button className="add_button">Add</button>}>
+                    <AddDirector />
+                </Popup>}
             </div>
         </div>
     );

@@ -74,7 +74,10 @@ function Actors() {
                         </React.Fragment>}
                     </figure>
                 )}
-                {userServices.checkIsAuth() && <AddActor />}
+                {userServices.checkIsAuth() && 
+                <Popup class="modal" modal trigger={<button className="add_button">Add</button>}>
+                    <AddActor />
+                </Popup>}
             </div>
         </div>
     );

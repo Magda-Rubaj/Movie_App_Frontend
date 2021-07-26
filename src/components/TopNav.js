@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Navbar from 'react-bootstrap/Navbar';
+import Button from 'react-bootstrap/Button';
 import userServices from '../services/userServices';
 import { NavLink } from "react-router-dom";
 
@@ -16,7 +16,7 @@ function TopNav({logoutCallback}) {
         {userServices.checkIsAuth() ?
         <React.Fragment>
             <p>{ JSON.parse(localStorage.getItem('user')).email}</p>
-            <button id="logout" onClick={logout}>Log Out</button>
+            <Button variant="primary" onClick={logout}>Log out</Button>{' '}
         </React.Fragment> :
         <React.Fragment>
             <NavLink id="login" className="NavItem" to="/login">Sign in</NavLink>

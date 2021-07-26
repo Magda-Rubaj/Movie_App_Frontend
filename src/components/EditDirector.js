@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import Select from 'react-select'
+import { Button, Modal } from 'react-bootstrap';
 import resourceServices from '../services/resourceServices';
 
 const TYPE = 'directors'
@@ -59,18 +60,25 @@ function EditDirector({directorID}) {
 
     return (
         <div className="EditDirector">
-                <form onSubmit={handleSubmit(editDirector)}>
-                    Name<br/>
-                    <input {...register('name')}/><br/>
-                    Date of birth<br/>
-                    <input {...register('birth_date')}/><br/>
-                    <br/>
-                    Image<br/>
-                    <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
-                    <br/>
-                    <Select options={movieList} onChange={handleSelectChange} isMulti/>
-                    <input type="submit" value="Save"/>
-                </form>               
+            <Modal.Dialog>
+                <Modal.Header>
+                    <Modal.Title>Edit</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handleSubmit(editDirector)}>
+                        Name<br/>
+                        <input {...register('name')}/><br/>
+                        Date of birth<br/>
+                        <input {...register('birth_date')}/><br/>
+                        <br/>
+                        Image<br/>
+                        <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
+                        <br/>
+                        <Select options={movieList} onChange={handleSelectChange} isMulti/>
+                        <Button variant="primary" type="submit">Save</Button>
+                    </form>   
+                </Modal.Body>
+            </Modal.Dialog>               
         </div>
     );
 }

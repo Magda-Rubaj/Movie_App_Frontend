@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import resourceServices from '../services/resourceServices';
 import userServices from '../services/userServices';
-import Popup from "reactjs-popup";
+import { Button, Modal } from 'react-bootstrap';
 
 const TYPE = 'movies'
 
@@ -26,7 +26,11 @@ function AddMovie() {
 
     return (
         <div className="AddMovie">
-            <Popup class="modal" modal trigger={<button className="add_button">Add</button>}>
+            <Modal.Dialog>
+                <Modal.Header>
+                    <Modal.Title>Add movie</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
                 <form onSubmit={handleSubmit(addMovie)}>
                     Title<br/>
                     <input {...register('title')}/><br/>
@@ -38,9 +42,10 @@ function AddMovie() {
                     <br/>
                     Description<br/>
                     <input {...register('description')}/><br/>
-                    <input type="submit" value="Save"/>
-                </form>              
-            </Popup>
+                    <Button variant="primary" type="submit">Save</Button>
+                </form>   
+                </Modal.Body>
+            </Modal.Dialog>              
         </div>
     );
 }

@@ -10,7 +10,6 @@ const userServices = {
             data: body,
             headers: {'Content-Type':'application/json'},
         })  
-        .then(res =>res)
         .catch(e => {
             console.log(e);
         }),

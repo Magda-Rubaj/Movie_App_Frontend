@@ -1,17 +1,27 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import userApi from '../services/userServices'
 
 function Register() {
 
     const { register, handleSubmit} = useForm()
+    let history = useHistory();
 
     const signup = data => {
         const user = JSON.stringify({
             email: data.email,
             password: data.password
         });
-        userApi.postUser(user);
+        userApi.postUser(user)
+            .then(res => {
+                console.log(res.status)
+                if(res.status === 201){
+                    history.push("/login")
+                }
+            })
+        
+        
     };
 
     return (

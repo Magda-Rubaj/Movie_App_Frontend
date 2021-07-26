@@ -4,6 +4,7 @@ import userServices from '../services/userServices';
 import AddMovie from './AddMovie';
 import EditMovie from './EditMovie';
 import Rating from 'material-ui-rating'
+import Popup from "reactjs-popup";
 
 const TYPE = 'movies'
 
@@ -64,11 +65,16 @@ function Movies() {
                         {userServices.checkIsAdmin() &&
                         <React.Fragment>
                             <button id="delete-movie" onClick={() => deleteMovie(movie.id)}>Delete</button>
-                            <EditMovie movieID={movie.id} />
+                            <Popup class="modal" modal trigger={<button className="edit_button">Edit</button>}>
+                                <EditMovie movieID={movie.id} />
+                            </Popup>
                         </React.Fragment>}
                     </figure>
                 )}
-                {userServices.checkIsAuth() &&  <AddMovie />}
+                {userServices.checkIsAuth() &&  
+                <Popup class="modal" modal trigger={<button className="edit_button">Add</button>}>
+                    <AddMovie />
+                </Popup>}
             </div>
         </div>
     );
