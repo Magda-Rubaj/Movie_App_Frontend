@@ -15,7 +15,6 @@ function Directors() {
         resourceServices.getResourceList(TYPE)
             .then(data => {
                 setDirectorList(data)
-                console.log(data)
             })
     }, [])
 
@@ -38,7 +37,6 @@ function Directors() {
 
     const already_voted = users =>{
         const id = userServices.getUserID();
-        console.log(users, id)
         return !users.includes(id)
     }
 

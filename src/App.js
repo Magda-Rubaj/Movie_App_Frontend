@@ -56,6 +56,7 @@ function App() {
     return (
         <div className="App">
             <HashRouter>
+            <Redirect to="/movies" />
             <TopNav logoutCallback={() => setAuthenticated(false)} />
             <div className="App_Container">
                 <div className="Side_Nav">

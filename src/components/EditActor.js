@@ -42,7 +42,6 @@ function EditActor({actorID}) {
     }
 
     const editActor = data => {
-        console.log(roleList)
         const patchData = JSON.stringify({
             name: data.name,
             birth_date: data.birth_date,

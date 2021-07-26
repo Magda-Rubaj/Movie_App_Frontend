@@ -15,7 +15,6 @@ function Actors() {
         resourceServices.getResourceList(TYPE)
             .then(data => {
                 setActorList(data)
-                console.log(data)
             })
     }, [])
 
@@ -38,7 +37,6 @@ function Actors() {
 
     const already_voted = users =>{
         const id = userServices.getUserID();
-        console.log(users, id)
         return !users.includes(id)
     }
 

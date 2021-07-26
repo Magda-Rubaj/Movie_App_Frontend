@@ -42,7 +42,6 @@ function EditDirector({directorID}) {
     }
 
     const editDirector = data => {
-        console.log(directedList)
         const patchData = JSON.stringify({
             name: data.name,
             birth_date: data.birth_date,

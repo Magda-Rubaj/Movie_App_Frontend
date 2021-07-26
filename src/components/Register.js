@@ -6,6 +6,7 @@ import userApi from '../services/userServices'
 function Register() {
 
     const { register, handleSubmit} = useForm()
+    const [emailError, setEmailError] = useState("")
     let history = useHistory();
 
     const signup = data => {
@@ -15,13 +16,12 @@ function Register() {
         });
         userApi.postUser(user)
             .then(res => {
-                console.log(res.status)
                 if(res.status === 201){
                     history.push("/login")
                 }
             })
             .catch(e => {
-                console.log(e.response);
+                setEmailError(e.response.data.email[0]);
             })
     };
 
@@ -34,6 +34,7 @@ function Register() {
                     <br/>
                     <h5>Password</h5>
                     <input {...register('password')} type="password" /><br/><br/>
+                    {emailError && <p>{emailError}</p>}
                     <input type="submit" value="Sign Up"/><br/>
                 </form>
         </div>
