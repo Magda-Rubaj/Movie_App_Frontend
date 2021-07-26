@@ -11,25 +11,30 @@ function EditActor({actorID}) {
     const [movieList, setMovieList] = useState([])
     const [roleList, setRoleList] = useState([])
     const [rolesToAdd, setRolesToAdd] = useState([])
+    const [fetched, setFetched] = useState(false)
 
     const { register, handleSubmit, setValue } = useForm()
     
     useEffect(() => {
-        resourceServices.getResource(actorID, TYPE)
-            .then(data => {
-                setValue('name', data.name)
-                setValue('birth_date', data.birth_date)
-                setRoleList(data.roles)
-            })
-
-        resourceServices.getResourceList('movies')
-            .then(data => {
-                const movie_data = data.map(movie => 
-                    ({value: movie.id, label: movie.title})
-                ).filter(value => !roleList.includes(value))
-                setMovieList(movie_data)
-            })
-    }, []);
+        if(!fetched){
+            resourceServices.getResource(actorID, TYPE)
+                .then(data => {
+                    setValue('name', data.name)
+                    setValue('birth_date', data.birth_date)
+                    setRoleList(data.roles)
+                    setFetched(true)
+                })
+        }
+        else{
+            resourceServices.getResourceList('movies')
+                .then(data => {
+                    const movie_data = data.map(movie => 
+                        ({value: movie.id, label: movie.title})
+                    ).filter(movie => !roleList.map(role => role.id).includes(movie.value))
+                    setMovieList(movie_data)
+                })
+        }
+    }, [fetched]);
 
     const handleSelectChange = selected => {
         selected = selected.map(role => ({id:role.value}))
@@ -50,7 +55,7 @@ function EditActor({actorID}) {
             imageForm.append('image', image, image.name);
         }
         resourceServices.patchImage(actorID, imageForm, TYPE)
-        window.location.reload()
+        //window.location.reload()
     }
 
     return (

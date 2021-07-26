@@ -10,25 +10,30 @@ function EditDirector({directorID}) {
     const [movieList, setMovieList] = useState([])
     const [directedList, setRoleList] = useState([])
     const [directedToAdd, setRolesToAdd] = useState([])
+    const [fetched, setFetched] = useState(false)
 
     const { register, handleSubmit, setValue } = useForm()
     
     useEffect(() => {
-        resourceServices.getResource(directorID, TYPE)
-            .then(data => {
-                setValue('name', data.name)
-                setValue('birth_date', data.birth_date)
-                setRoleList(data.directed)
-            })
-
-        resourceServices.getResourceList('movies')
-            .then(data => {
-                const movie_data = data.map(movie => 
-                    ({value: movie.id, label: movie.title})
-                ).filter(value => !directedList.includes(value))
-                setMovieList(movie_data)
-            })
-    }, []);
+        if(!fetched){
+            resourceServices.getResource(directorID, TYPE)
+                .then(data => {
+                    setValue('name', data.name)
+                    setValue('birth_date', data.birth_date)
+                    setRoleList(data.directed)
+                    setFetched(true)
+                })
+        }
+        else{
+            resourceServices.getResourceList('movies')
+                .then(data => {
+                    const movie_data = data.map(movie => 
+                        ({value: movie.id, label: movie.title})
+                    ).filter(value => !directedList.includes(value))
+                    setMovieList(movie_data)
+                })
+        }
+    }, [fetched]);
 
     const handleSelectChange = selected => {
         selected = selected.map(directed => directed.value)
