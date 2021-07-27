@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import resourceServices from '../services/resourceServices';
 import userServices from '../services/userServices';
 import { Button, Modal } from 'react-bootstrap';
@@ -9,6 +10,8 @@ const TYPE = 'movies'
 function AddMovie() {
 
     const { register, handleSubmit} = useForm()
+    let history = useHistory();
+    
 
     const addMovie = data => {
         let postData = new FormData();
@@ -21,7 +24,7 @@ function AddMovie() {
         postData.append('description', data.description);
         postData.append('added_by', userServices.getUserID());
         resourceServices.postResource(postData, TYPE);
-        window.location.reload()
+        history.go(0)
     }
 
     return (

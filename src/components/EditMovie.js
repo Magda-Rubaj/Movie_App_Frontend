@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import resourceServices from '../services/resourceServices';
 import { Button, Modal } from 'react-bootstrap';
 
@@ -8,6 +9,7 @@ const TYPE = 'movies'
 function EditMovie({movieID}) {
 
     const { register, handleSubmit, setValue } = useForm()
+    let history = useHistory();
 
     useEffect(() => {
         resourceServices.getResource(movieID, TYPE)
@@ -28,7 +30,8 @@ function EditMovie({movieID}) {
             patchData.append('image', image, image.name);
         }
         resourceServices.patchResource(movieID, patchData, TYPE);
-        window.location.reload()
+        history.go(0)
+
     }
 
     return (

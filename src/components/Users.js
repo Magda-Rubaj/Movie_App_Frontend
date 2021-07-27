@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
 import userServices from '../services/userServices';
 
 function Users() {
     const [userList, setUserList] = useState([])
+    let history = useHistory();
+
 
     useEffect(() => {
         userServices.getUserList()
@@ -13,7 +17,7 @@ function Users() {
 
     const deleteUser = id => {
         userServices.deleteUser(id);
-        window.location.reload()
+        history.go(0)
     }
 
     const grantAdmin = id => {
@@ -26,15 +30,20 @@ function Users() {
     return (
         <div className="Users">
             <div className="Users_Container">
-                <h3>Users</h3>
-                {userList.map(user => 
-                    <div key={user.id}>
-                        <p>{user.email}</p>
-                        <p>{user.is_admin}</p>
-                        <button id="delete-user" onClick={() => deleteUser(user.id)}>Delete</button>
-                        <button id="admin-user" onClick={() => grantAdmin(user.id)}>Make admin</button> 
-                    </div>
-                )}
+                <ul>
+                    {userList.map(user => 
+                        <li key={user.id}>
+                            {console.log(user)}
+                            <p>{`${user.email} (${user.is_admin ? 'admin' : 'regular'})`}</p>
+                            {!user.is_admin &&
+                                <div>
+                                    <Button variant="primary"  id="delete-user" onClick={() => deleteUser(user.id)}>Delete</Button>
+                                    <Button variant="outline-primary" id="admin-user" onClick={() => grantAdmin(user.id)}>Make admin</Button> 
+                                </div>
+                            }
+                        </li>
+                    )}
+                </ul>
             </div>
         </div>
     );

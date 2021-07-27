@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from "react-router-dom";
 import resourceServices from '../services/resourceServices';
 import userServices from '../services/userServices';
 import AddDirector from './AddDirector';
 import EditDirector from './EditDirector';
+import { Button } from 'react-bootstrap';
 import Popup from "reactjs-popup";
 import Rating from 'material-ui-rating'
 
@@ -10,6 +12,7 @@ const TYPE = 'directors'
 
 function Directors() {
     const [directorList, setDirectorList] = useState([])
+    let history = useHistory();
 
     useEffect(() => {
         resourceServices.getResourceList(TYPE)
@@ -20,7 +23,7 @@ function Directors() {
 
     const deleteDirector = id => {
         resourceServices.deleteResource(id, TYPE);
-        window.location.reload()
+        history.go(0)
     }
 
     const onRatingchange = (value, id, currentRating, count, users) => {
@@ -32,7 +35,7 @@ function Directors() {
             users_voted: [...users, userServices.getUserID()]
         });
         resourceServices.patchResource(id, rating, TYPE)
-        window.location.reload()
+        history.go(0)
     }
 
     const already_voted = users =>{
@@ -44,32 +47,35 @@ function Directors() {
     return (
         <div className="Directors">
             <div className="Directors_Container">
-                <h3>Directors</h3>
                 {directorList.map(director => 
                     <figure key={director.id}>
                     <img src={director.image}/>
-                        <figcaption>{director.name}</figcaption>
+                    <div className="fig">
+                        <div className="figHead">
+                            <figcaption>{director.name}</figcaption>
+                            <Rating 
+                                value={director.rating} 
+                                max={5} 
+                                readOnly={(userServices.checkIsAuth() && already_voted(director.users_voted)) ? false : true}
+                                onChange={(value) => 
+                                    onRatingchange(value, director.id, director.rating, 
+                                                director.rating_count, director.users_voted)}
+                            />
+                        </div>
                         <p>{`Date of birth: ${director.birth_date}`}</p>
                         <p>{`Directed: ${director.directed}`}</p>
-                        <Rating 
-                            value={director.rating} 
-                            max={5} 
-                            readOnly={(userServices.checkIsAuth() && already_voted(director.users_voted)) ? false : true}
-                            onChange={(value) => 
-                                onRatingchange(value, director.id, director.rating, 
-                                               director.rating_count, director.users_voted)}
-                        />
                         {userServices.checkIsAdmin() &&
                         <React.Fragment>
-                            <button id="delete-director" onClick={() => deleteDirector(director.id)}>Delete</button>
-                            <Popup class="modal" modal trigger={<button className="edit_button">Edit</button>}>
+                            <Button variant="primary" id="delete-director" onClick={() => deleteDirector(director.id)}>Delete</Button>
+                            <Popup class="modal" modal trigger={<Button variant="outline-primary" className="edit_button">Edit</Button>}>
                                 <EditDirector directorID={director.id} />
                             </Popup>
                         </React.Fragment>}
+                        </div>
                     </figure>
                 )}
                 {userServices.checkIsAuth() && 
-                <Popup class="modal" modal trigger={<button className="add_button">Add</button>}>
+                <Popup class="modal" modal trigger={<Button variant="primary" className="add_button">Add director</Button>}>
                     <AddDirector />
                 </Popup>}
             </div>

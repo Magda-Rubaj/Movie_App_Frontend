@@ -20,6 +20,7 @@ function TopNav({logoutCallback}) {
         </React.Fragment> :
         <React.Fragment>
             <NavLink id="login" className="NavItem" to="/login">Sign in</NavLink>
+            <a>|</a>
             <NavLink id="register" className="NavItem" to="/register">Sign Up</NavLink>
         </React.Fragment>
         }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import Select from 'react-select'
 import resourceServices from '../services/resourceServices';
 import { Button, Modal } from 'react-bootstrap';
@@ -14,6 +15,7 @@ function EditActor({actorID}) {
     const [fetched, setFetched] = useState(false)
 
     const { register, handleSubmit, setValue } = useForm()
+    let history = useHistory();
     
     useEffect(() => {
         if(!fetched){
@@ -50,11 +52,11 @@ function EditActor({actorID}) {
         resourceServices.patchResource(actorID, patchData, TYPE);
         let imageForm = new FormData();
         const image = data.image[0]
-        if(image){
+        if(image){//window.location.reload()
             imageForm.append('image', image, image.name);
         }
         resourceServices.patchImage(actorID, imageForm, TYPE)
-        //window.location.reload()
+        history.go(0)
     }
 
     return (

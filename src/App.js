@@ -22,7 +22,6 @@ function App() {
     const [authenticated, setAuthenticated] = useState(false)
 
     useEffect(() => {
-        console.log("oof")
         axios.interceptors.response.use(res => res,
         error => {
             const {status, data, config } = error.response;
@@ -60,7 +59,7 @@ function App() {
             <TopNav logoutCallback={() => setAuthenticated(false)} />
             <div className="App_Container">
                 <div className="Side_Nav">
-                    <h5>Movies App</h5>
+                    <h4>Movies App</h4>
                     <nav>
                         {userServices.checkIsAdmin() &&
                             <div className="NavItemWrapper">

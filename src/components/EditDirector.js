@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
+import { useHistory } from "react-router-dom";
 import Select from 'react-select'
 import { Button, Modal } from 'react-bootstrap';
 import resourceServices from '../services/resourceServices';
@@ -14,6 +15,7 @@ function EditDirector({directorID}) {
     const [fetched, setFetched] = useState(false)
 
     const { register, handleSubmit, setValue } = useForm()
+    let history = useHistory();
     
     useEffect(() => {
         if(!fetched){
@@ -54,7 +56,7 @@ function EditDirector({directorID}) {
             imageForm.append('image', image, image.name);
         }
         resourceServices.patchImage(directorID, imageForm, TYPE)
-        window.location.reload()
+        history.go(0)
     }
 
     return (

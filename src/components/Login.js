@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useHistory } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 import userApi from '../services/userServices'
 import tokenApi from '../services/tokenServices';
 
@@ -36,16 +37,15 @@ function Login({loginCallback}) {
     };
 
     return (
-        <div className="Login">
+        <div className="Login"  className="auth_form">
             <h3>Login</h3>
              <form onSubmit={handleSubmit(signin)}>
-             <h5>Email</h5>
-                <input {...register('email') } type="email"/><br/>
-                <br/>
-                <h5>Password</h5>
-                <input {...register('password')} type="password" /><br/><br/>
+             <label>Email</label>
+                <input {...register('email') } type="email"/>
+                <label>Password</label>
+                <input {...register('password')} type="password" />
                 {credentialsError && <p>{credentialsError}</p>}
-                <input type="submit" value="Login"/><br/>
+                <Button variant="primary" type="submit">Login</Button>
             </form>
         </div>
     );
