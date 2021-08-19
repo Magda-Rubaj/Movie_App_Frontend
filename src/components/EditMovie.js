@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
-import movieServices from '../services/movieServices';
-import Popup from "reactjs-popup";
+import { useHistory } from "react-router-dom";
+import resourceServices from '../services/resourceServices';
+import { Button, Modal } from 'react-bootstrap';
+
+const TYPE = 'movies'
 
 function EditMovie({movieID}) {
 
     const { register, handleSubmit, setValue } = useForm()
+    let history = useHistory();
 
     useEffect(() => {
-        movieServices.getMovie(movieID)
+        resourceServices.getResource(movieID, TYPE)
             .then(data => {
                 setValue('title', data.title)
                 setValue('production_year', data.production_year)
@@ -21,24 +25,37 @@ function EditMovie({movieID}) {
         patchData.append('title', data.title);
         patchData.append('production_year', data.production_year);
         patchData.append('description', data.description);
-        movieServices.patchMovie(movieID, patchData);
-        window.location.reload()
+        const image = data.image[0]
+        if(image){
+            patchData.append('image', image, image.name);
+        }
+        resourceServices.patchResource(movieID, patchData, TYPE);
+        history.go(0)
+
     }
 
     return (
         <div className="EditMovie">
-            <Popup class="modal" modal trigger={<button className="edit_button">Edit</button>}>
-                <form onSubmit={handleSubmit(editMovie)}>
-                    Title<br/>
-                    <input {...register('title')}/><br/>
-                    Year of production<br/>
-                    <input {...register('production_year')}/><br/>
-                    <br/>
-                    Description<br/>
-                    <input {...register('description')}/><br/>
-                    <input type="submit" value="Save"/>
-                </form>               
-            </Popup>
+            <Modal.Dialog>
+                <Modal.Header>
+                    <Modal.Title>Edit</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form onSubmit={handleSubmit(editMovie)}>
+                        Title<br/>
+                        <input {...register('title')}/><br/>
+                        Year of production<br/>
+                        <input {...register('production_year')}/><br/>
+                        <br/>
+                        Image<br/>
+                        <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
+                        <br/>
+                        Description<br/>
+                        <input {...register('description')}/><br/>
+                        <Button variant="primary" type="submit">Save</Button>
+                    </form>  
+                </Modal.Body>
+            </Modal.Dialog>                
         </div>
     );
 }

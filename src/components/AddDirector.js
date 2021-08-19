@@ -5,52 +5,48 @@ import resourceServices from '../services/resourceServices';
 import userServices from '../services/userServices';
 import { Button, Modal } from 'react-bootstrap';
 
-const TYPE = 'movies'
+const TYPE = 'directors'
 
-function AddMovie() {
+function AddDirector() {
 
     const { register, handleSubmit} = useForm()
     let history = useHistory();
-    
 
-    const addMovie = data => {
+    const addDirector = data => {
         let postData = new FormData();
-        postData.append('title', data.title);
-        postData.append('production_year', data.production_year);
+        postData.append('name', data.name);
+        postData.append('birth_date', data.birth_date);
         const image = data.image[0]
         if(image){
             postData.append('image', image, image.name);
         }
-        postData.append('description', data.description);
         postData.append('added_by', userServices.getUserID());
         resourceServices.postResource(postData, TYPE);
         history.go(0)
     }
 
     return (
-        <div className="AddMovie">
+        <div className="AddDirector">
             <Modal.Dialog>
                 <Modal.Header>
-                    <Modal.Title>Add movie</Modal.Title>
+                    <Modal.Title>Add director</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <form onSubmit={handleSubmit(addMovie)}>
-                    Title<br/>
-                    <input {...register('title')}/><br/>
-                    Year of production<br/>
-                    <input {...register('production_year')} type="number"/><br/>
+                <form onSubmit={handleSubmit(addDirector)}>
+                    Name<br/>
+                    <input {...register('name')}/><br/>
+                    Date of birth<br/>
+                    <input {...register('birth_date')} type="date"/><br/>
                     <br/>
                     Image<br/>
                     <input {...register('image')} type="file" accept="image/png, image/jpeg"/><br/>
                     <br/>
-                    Description<br/>
-                    <input {...register('description')}/><br/>
                     <Button variant="primary" type="submit">Save</Button>
-                </form>   
+                </form>
                 </Modal.Body>
-            </Modal.Dialog>              
+            </Modal.Dialog>                  
         </div>
     );
 }
 
-export default AddMovie;
+export default AddDirector;

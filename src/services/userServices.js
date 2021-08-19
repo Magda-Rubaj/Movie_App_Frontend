@@ -2,17 +2,13 @@ import axios from "axios";
 
 const API_URL = "http://0.0.0.0:8000/accounts-api/users/";
 
-export default {
+const userServices = {
     postUser: body => 
         axios({
             method: 'post',
             url: API_URL, 
             data: body,
             headers: {'Content-Type':'application/json'},
-        })  
-        .then(res =>res)
-        .catch(e => {
-            console.log(e);
         }),
 
     getUser: id => 
@@ -33,6 +29,10 @@ export default {
                 'Content-Type':'application/json',
                 'Authorization': "Bearer " + localStorage.getItem('access_token'),
             },
+        })
+        .then(res => res.data)
+        .catch(e => {
+            console.log(e);
         }),
     
     deleteUser: id => 
@@ -60,9 +60,12 @@ export default {
             },
         }),
 
+    checkIsAuth: () => localStorage.getItem('access_token') != null ? true : false,
 
-    checkIsAdmin: () => JSON.parse(localStorage.getItem('user')).is_admin,
+    checkIsAdmin: () => 
+        userServices.checkIsAuth() ? JSON.parse(localStorage.getItem('user')).is_admin : false,
 
     getUserID: () => JSON.parse(localStorage.getItem('user')).id,
     
 };
+export default userServices
