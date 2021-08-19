@@ -29,7 +29,7 @@ function AddDirector() {
         <div className="AddDirector">
             <Modal.Dialog>
                 <Modal.Header>
-                    <Modal.Title>Add movie</Modal.Title>
+                    <Modal.Title>Add director</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                 <form onSubmit={handleSubmit(addDirector)}>

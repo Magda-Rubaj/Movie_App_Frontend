@@ -39,7 +39,7 @@ function EditDirector({directorID}) {
     }, [fetched]);
 
     const handleSelectChange = selected => {
-        selected = selected.map(directed => directed.value)
+        selected = selected.map(directed => ({id:directed.value}))
         setRolesToAdd(selected)
     }
 
@@ -55,6 +55,7 @@ function EditDirector({directorID}) {
         if(image){
             imageForm.append('image', image, image.name);
         }
+        console.log(patchData)
         resourceServices.patchImage(directorID, imageForm, TYPE)
         history.go(0)
     }

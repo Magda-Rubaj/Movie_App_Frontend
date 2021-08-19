@@ -63,7 +63,7 @@ function Directors() {
                             />
                         </div>
                         <p>{`Date of birth: ${director.birth_date}`}</p>
-                        <p>{`Directed: ${director.directed}`}</p>
+                        <p>{`Directed: ${director.directed.map(part=> part.title)}`}</p>
                         {userServices.checkIsAdmin() &&
                         <React.Fragment>
                             <Button variant="primary" id="delete-director" onClick={() => deleteDirector(director.id)}>Delete</Button>

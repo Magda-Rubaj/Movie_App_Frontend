@@ -52,7 +52,7 @@ function EditActor({actorID}) {
         resourceServices.patchResource(actorID, patchData, TYPE);
         let imageForm = new FormData();
         const image = data.image[0]
-        if(image){//window.location.reload()
+        if(image){
             imageForm.append('image', image, image.name);
         }
         resourceServices.patchImage(actorID, imageForm, TYPE)
